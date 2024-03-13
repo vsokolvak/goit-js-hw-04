@@ -1,20 +1,26 @@
 "use strict"
 
-function makeTransaction(quantity, pricePerDroid, customerCredits) {
-    // quantity — кількість замовлених дроїдів
-    // pricePerDroid — ціна одного дроїда
-    // customerCredits — сума коштів на рахунку клієнта
-    const totalPrice = quantity * pricePerDroid // сума замовлення
-    if ( customerCredits >= totalPrice ) {
-        return `"You ordered ${quantity} droids worth ${totalPrice} credits!"`
-    }
+function slugify(title) {
+    // приймає заголовок статті, параметр title 
+    // і повертає slug, створений із цього рядка.
+    // Значенням параметра title будуть рядки, слова яких розділені лише пробілами.
+    // Усі символи slug повинні бути в нижньому регістрі.
+    // Усі слова slug повинні бути розділені тире.
+    if ( typeof title !== 'string') return 'incorect data' 
+    const slugString = title.toLowerCase()
+    const slugArray = slugString.split(' ')
+    const slug = slugArray.join('-')
+    return slug
 
-    return `"Insufficient funds!"`
+    
 
 }
 
-console.log(makeTransaction(5, 3000, 23000)); // "You ordered 5 droids worth 15000 credits!"
-console.log(makeTransaction(3, 1000, 15000)); // "You ordered 3 droids worth 3000 credits!"
-console.log(makeTransaction(10, 5000, 8000)); // "Insufficient funds!"
-console.log(makeTransaction(8, 2000, 10000)); // "Insufficient funds!"
-console.log(makeTransaction(10, 500, 5000)); // "You ordered 10 droids worth 5000 credits!"
+console.log(slugify("Arrays for begginers")); // "arrays-for-begginers"
+console.log(slugify("English for developer")); // "english-for-developer"
+console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
+console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
+console.log(slugify(12)); // 'incorect data'
+console.log(slugify([5 , 6])); // 'incorect data'
+console.log(slugify(['5' , '6'])); // 'incorect data'
+console.log(slugify({ 5:5 , 6:6})); // 'incorect data'

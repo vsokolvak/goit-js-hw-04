@@ -1,25 +1,37 @@
 "use strict"
 
-function formatMessage(message, maxLength) {
-    // рядок (параметр message) та перевіряє його довжину відповідно до заданої 
-    // максимальної довжини (параметр maxLength).
-    if (message.length <= maxLength) {
-        return message
+function makeArray(firstArray, secondArray, maxLength) {
+    // приймає три параметри: firstArray (масив), secondArray (масив) і maxLength (число). 
+    // Функція повинна створювати новий масив, 
+    // який містить усі елементи з firstArray, 
+    // а потім усі елементи з secondArray.
+
+    // Якщо кількість елементів у новому масиві перевищує maxLength, функція повинна повернути копію масиву з довжиною maxLength елементів.
+    // В іншому випадку функція повинна повернути весь новий масив.
+
+    // щоб не було помилок, перевіряю чи прийшли коректні дані
+    if (!Array.isArray(firstArray) || !Array.isArray(secondArray) || typeof maxLength !== 'number' ) {
+        return 'incorect data'
     }
 
-    if (message.length > maxLength) {
-        const newMessage = message.slice( 0, maxLength ) + '...'
-        return newMessage
+    let newArray = firstArray.concat(secondArray)
+
+    if (newArray.length > maxLength) {
+        newArray = newArray.slice(0, maxLength)
     }
+
+    return newArray
+
 }
 
 console.log('--------------------')
 console.log('------ 2 TASK ------')
 console.log('--------------------')
  
-console.log(formatMessage("Curabitur ligula sapien", 16)); // "Curabitur ligula..."
-console.log(formatMessage("Curabitur ligula sapien", 23)); // "Curabitur ligula sapien"
-console.log(formatMessage("Vestibulum facilisis purus nec", 20)); // "Vestibulum facilisis..."
-console.log(formatMessage("Vestibulum facilisis purus nec", 30)); // "Vestibulum facilisis purus nec"
-console.log(formatMessage("Nunc sed turpis a felis in nunc fringilla", 15)); // "Nunc sed turpis..."
-console.log(formatMessage("Nunc sed turpis a felis in nunc fringilla", 41)); // "Nunc sed turpis a felis in nunc fringilla"
+console.log(makeArray(["Mango", "Poly"], ["Ajax", "Chelsea"], 3)); // ["Mango", "Poly", "Ajax"]
+console.log(makeArray(["Mango", "Poly", "Houston"], ["Ajax", "Chelsea"], 4)); // ["Mango", "Poly", "Houston", "Ajax"]
+console.log(makeArray(["Mango"], ["Ajax", "Chelsea", "Poly", "Houston"], 3)); // ["Mango", "Ajax", "Chelsea"]
+console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus"], 2)); // ["Earth", "Jupiter"]
+console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus"], 4)); // ["Earth", "Jupiter", "Neptune", "Uranus"]
+console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus", "Venus"], 0)); // []
+console.log(makeArray({1:"Earth", 2:"Jupiter"}, ["Neptune", "Uranus", "Venus"], 0)); // []
